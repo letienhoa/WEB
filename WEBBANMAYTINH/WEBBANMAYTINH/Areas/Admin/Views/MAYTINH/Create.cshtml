@@ -1,0 +1,48 @@
+﻿@model WEBBANMAYTINH.Models.MAYTINH
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>MAYTINH</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group">
+                <label asp-for="TenMayTinh" class="control-label"></label>
+                <input asp-for="TenMayTinh" class="form-control" />
+                <span asp-validation-for="TenMayTinh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NgaySanXuat" class="control-label"></label>
+                <input asp-for="NgaySanXuat" class="form-control" />
+                <span asp-validation-for="NgaySanXuat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NhaSanXuat" class="control-label"></label>
+                <input asp-for="NhaSanXuat" class="form-control" />
+                <span asp-validation-for="NhaSanXuat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LoaiMayTinh" class="control-label"></label>
+                <input asp-for="LoaiMayTinh" class="form-control" />
+                <span asp-validation-for="LoaiMayTinh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Create" />
+                <a asp-action="Index" class="btn btn-success">Back To List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
