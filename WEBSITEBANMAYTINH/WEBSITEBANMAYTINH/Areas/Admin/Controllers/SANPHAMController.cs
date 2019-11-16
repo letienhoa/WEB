@@ -43,25 +43,6 @@ namespace WEBSITEBANMAYTINH.Areas.Admin.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Admin/SANPHAM/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var sANPHAM = await _context.SANPHAM
-                .Include(s => s.LOAISANPHAM)
-                .Include(s => s.NHASANXUAT)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (sANPHAM == null)
-            {
-                return NotFound();
-            }
-
-            return View(sANPHAM);
-        }
 
         //GetAction Create 
         public IActionResult Create()
@@ -110,85 +91,7 @@ namespace WEBSITEBANMAYTINH.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //// GET: Admin/SANPHAM/Create
-        //public IActionResult Create()
-        //{
-        //    ViewData["LoaiSanPhamId"] = new SelectList(_context.LOAISANPHAM, "Id", "TenLoaiSanPham");
-        //    ViewData["NhaSanXuatId"] = new SelectList(_context.NHASANXUAT, "Id", "TenNhaSanXuat");
-        //    return View();
-        //}
-
-        //// POST: Admin/SANPHAM/Create
         
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Id,TenSanPham,SoLuong,Image,DonGia,LoaiSanPhamId,NhaSanXuatId")] SANPHAM sANPHAM)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(sANPHAM);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["LoaiSanPhamId"] = new SelectList(_context.LOAISANPHAM, "Id", "TenLoaiSanPham", sANPHAM.LOAISANPHAM.TenLoaiSanPham);
-        //    ViewData["NhaSanXuatId"] = new SelectList(_context.NHASANXUAT, "Id", "TenNhaSanXuat", sANPHAM.NHASANXUAT.TenNhaSanXuat);
-        //    return View(sANPHAM);
-        //}
-
-        // GET: Admin/SANPHAM/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var sANPHAM = await _context.SANPHAM.FindAsync(id);
-        //    if (sANPHAM == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ViewData["LoaiSanPhamId"] = new SelectList(_context.LOAISANPHAM, "Id", "Id", sANPHAM.LoaiSanPhamId);
-        //    ViewData["NhaSanXuatId"] = new SelectList(_context.NHASANXUAT, "Id", "Id", sANPHAM.NhaSanXuatId);
-        //    return View(sANPHAM);
-        //}
-
-        //// POST: Admin/SANPHAM/Edit/5
-        
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("Id,TenSanPham,SoLuong,Image,DonGia,LoaiSanPhamId,NhaSanXuatId")] SANPHAM sANPHAM)
-        //{
-        //    if (id != sANPHAM.Id)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(sANPHAM);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!SANPHAMExists(sANPHAM.Id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["LoaiSanPhamId"] = new SelectList(_context.LOAISANPHAM, "Id", "Id", sANPHAM.LoaiSanPhamId);
-        //    ViewData["NhaSanXuatId"] = new SelectList(_context.NHASANXUAT, "Id", "Id", sANPHAM.NhaSanXuatId);
-        //    return View(sANPHAM);
-        //}
-        //Edit
         public async Task<IActionResult> Edit(int? id)
         {
             if(id==null)
@@ -247,40 +150,64 @@ namespace WEBSITEBANMAYTINH.Areas.Admin.Controllers
 
             return View(SANPHAMVM);
         }
-        // GET: Admin/SANPHAM/Delete/5
+        //Details
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            SANPHAMVM.SANPHAM = await _context.SANPHAM.Include(m => m.LOAISANPHAM).Include(m => m.NHASANXUAT).SingleOrDefaultAsync(m => m.Id == id);
+            if (SANPHAMVM.SANPHAM == null)
+            {
+                return NotFound();
+            }
+            return View(SANPHAMVM);
+        }
+
+        //Delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var sANPHAM = await _context.SANPHAM
-                .Include(s => s.LOAISANPHAM)
-                .Include(s => s.NHASANXUAT)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (sANPHAM == null)
+            SANPHAMVM.SANPHAM = await _context.SANPHAM.Include(m => m.LOAISANPHAM).Include(m => m.NHASANXUAT).SingleOrDefaultAsync(m => m.Id == id);
+            if (SANPHAMVM.SANPHAM == null)
             {
                 return NotFound();
             }
-
-            return View(sANPHAM);
+            return View(SANPHAMVM);
         }
 
-        // POST: Admin/SANPHAM/Delete/5
-        [HttpPost, ActionName("Delete")]
+        //POST Delete
+        [HttpPost,ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var sANPHAM = await _context.SANPHAM.FindAsync(id);
-            _context.SANPHAM.Remove(sANPHAM);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            string webRootPath = _hosting.WebRootPath;
+            SANPHAM SanPham = await _context.SANPHAM.FindAsync(id);
 
-        private bool SANPHAMExists(int id)
-        {
-            return _context.SANPHAM.Any(e => e.Id == id);
+            if(SanPham==null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var uploads = Path.Combine(webRootPath, SD.ImageFolder);
+                var extension = Path.GetExtension(SanPham.Image);
+
+                if(System.IO.File.Exists(Path.Combine(uploads,SanPham.Id+extension)))
+                {
+                    System.IO.File.Delete(Path.Combine(uploads, SanPham.Id + extension));
+
+                }
+                _context.Remove(SanPham);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+
         }
     }
 }
