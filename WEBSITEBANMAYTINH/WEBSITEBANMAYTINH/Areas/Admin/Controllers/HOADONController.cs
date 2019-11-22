@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WEBSITEBANMAYTINH.Data;
 using WEBSITEBANMAYTINH.Models;
+using WEBSITEBANMAYTINH.Models.ViewModel;
 
 namespace WEBSITEBANMAYTINH.Areas.Admin.Controllers
 {
@@ -15,9 +16,19 @@ namespace WEBSITEBANMAYTINH.Areas.Admin.Controllers
     {
         private readonly ApplicationDbContext _context;
 
+        [BindProperty]
+        public HOADONViewModel HoaDonVM { get; set; }
+
         public HOADONController(ApplicationDbContext context)
         {
             _context = context;
+
+            HoaDonVM = new HOADONViewModel()
+            {
+                SANPHAM = _context.SANPHAM.ToList(),
+                KHACHHANG=_context.KHACHHANG.ToList(),
+                HOADON=new Models.HOADON()
+            };
         }
 
         // GET: Admin/HOADON
@@ -27,141 +38,112 @@ namespace WEBSITEBANMAYTINH.Areas.Admin.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Admin/HOADON/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var hOADON = await _context.HOADON
-                .Include(h => h.KHACHHANG)
-                .Include(h => h.SANPHAM)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (hOADON == null)
-            {
-                return NotFound();
-            }
 
-            return View(hOADON);
-        }
-
-        // GET: Admin/HOADON/Create
+        //
         public IActionResult Create()
         {
-            ViewData["KhachHangId"] = new SelectList(_context.KHACHHANG, "Id", "Id");
-            ViewData["SanPhamId"] = new SelectList(_context.SANPHAM, "Id", "Id");
-            return View();
+            return View(HoaDonVM);
         }
 
-        // POST: Admin/HOADON/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        //Post
+        [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,KhachHangId,SanPhamId,SoLuongSanPham,TongDonGia,NgayLap")] HOADON hOADON)
+        public async Task<IActionResult> CreatePOST()
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(hOADON);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View(HoaDonVM);
             }
-            ViewData["KhachHangId"] = new SelectList(_context.KHACHHANG, "Id", "Id", hOADON.KhachHangId);
-            ViewData["SanPhamId"] = new SelectList(_context.SANPHAM, "Id", "Id", hOADON.SanPhamId);
-            return View(hOADON);
+            _context.HOADON.Add(HoaDonVM.HOADON);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
-
-        // GET: Admin/HOADON/Edit/5
+        //Edit
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var hOADON = await _context.HOADON.FindAsync(id);
-            if (hOADON == null)
+            HoaDonVM.HOADON = await _context.HOADON.Include(m => m.KHACHHANG).Include(m => m.SANPHAM).SingleOrDefaultAsync(m => m.Id == id);
+            if (HoaDonVM.HOADON == null)
             {
                 return NotFound();
             }
-            ViewData["KhachHangId"] = new SelectList(_context.KHACHHANG, "Id", "Id", hOADON.KhachHangId);
-            ViewData["SanPhamId"] = new SelectList(_context.SANPHAM, "Id", "Id", hOADON.SanPhamId);
-            return View(hOADON);
+            return View(HoaDonVM);
         }
 
-        // POST: Admin/HOADON/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,KhachHangId,SanPhamId,SoLuongSanPham,TongDonGia,NgayLap")] HOADON hOADON)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id != hOADON.Id)
+            if (ModelState.IsValid)
+            {
+                var HoaDonFromDb = _context.HOADON.Where(m => m.Id == HoaDonVM.HOADON.Id).FirstOrDefault();
+
+                HoaDonFromDb.KhachHangId = HoaDonVM.HOADON.KhachHangId;
+                HoaDonFromDb.SanPhamId= HoaDonVM.HOADON.SanPhamId;
+                HoaDonFromDb.SoLuongSanPham = HoaDonVM.HOADON.SoLuongSanPham;
+                HoaDonFromDb.TongDonGia = HoaDonVM.HOADON.TongDonGia;
+                HoaDonFromDb.NgayLap = HoaDonVM.HOADON.NgayLap;
+
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+            return View(HoaDonVM);
+        }
+
+        //Details
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            HoaDonVM.HOADON = await _context.HOADON.Include(m => m.KHACHHANG).Include(m => m.SANPHAM).SingleOrDefaultAsync(m => m.Id == id);
+            if (HoaDonVM.HOADON == null)
             {
-                try
-                {
-                    _context.Update(hOADON);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!HOADONExists(hOADON.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-            ViewData["KhachHangId"] = new SelectList(_context.KHACHHANG, "Id", "Id", hOADON.KhachHangId);
-            ViewData["SanPhamId"] = new SelectList(_context.SANPHAM, "Id", "Id", hOADON.SanPhamId);
-            return View(hOADON);
+            return View(HoaDonVM);
         }
 
-        // GET: Admin/HOADON/Delete/5
+        //Delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var hOADON = await _context.HOADON
-                .Include(h => h.KHACHHANG)
-                .Include(h => h.SANPHAM)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (hOADON == null)
+            HoaDonVM.HOADON = await _context.HOADON.Include(m => m.KHACHHANG).Include(m => m.SANPHAM).SingleOrDefaultAsync(m => m.Id == id);
+            if (HoaDonVM.HOADON == null)
             {
                 return NotFound();
             }
-
-            return View(hOADON);
+            return View(HoaDonVM);
         }
 
-        // POST: Admin/HOADON/Delete/5
+        //POST Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var hOADON = await _context.HOADON.FindAsync(id);
-            _context.HOADON.Remove(hOADON);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            HOADON HoaDon = await _context.HOADON.FindAsync(id);
 
-        private bool HOADONExists(int id)
-        {
-            return _context.HOADON.Any(e => e.Id == id);
+            if (HoaDon == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                _context.Remove(HoaDon);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+
         }
     }
 }

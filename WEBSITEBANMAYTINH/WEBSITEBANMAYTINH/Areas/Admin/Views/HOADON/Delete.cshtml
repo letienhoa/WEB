@@ -1,51 +1,70 @@
-﻿@model WEBSITEBANMAYTINH.Models.HOADON
+﻿@model WEBSITEBANMAYTINH.Models.ViewModel.HOADONViewModel
+@using WEBSITEBANMAYTINH.Extensions
 
-@{
-    ViewData["Title"] = "Delete";
-}
+<br />
+<br />
+<h2 class="text-info">Delete Hoa Don</h2>
+<form method="post">
+    <div class="p-4 border rounded row">
+        <input hidden asp-for="HOADON.Id" />
+        <div class="col-8 ">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="KHACHHANG"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="HOADON.KHACHHANG.TenKhachHang" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="SANPHAM"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="HOADON.SANPHAM.TenSanPham" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="HOADON.SoLuongSanPham"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="HOADON.SoLuongSanPham" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="HOADON.TongDonGia"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="HOADON.TongDonGia" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="HOADON.NgayLap"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="HOADON.NgayLap" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="col-1">
 
-<h1>Delete</h1>
+            </div>
 
-<h3>Are you sure you want to delete this?</h3>
+            <br />
+            <div class="form-group">
+                <input type="submit" class="btn btn-danger" value="Delete" />
+                <a asp-action="Index" class="btn btn-success">Back To List</a>
+            </div>
+        </div>
+    </div>
+</form>
+
 <div>
-    <h4>HOADON</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.KHACHHANG)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.KHACHHANG.Id)
-        </dd class>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SANPHAM)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SANPHAM.Id)
-        </dd class>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SoLuongSanPham)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SoLuongSanPham)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TongDonGia)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TongDonGia)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NgayLap)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NgayLap)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+    <a asp-action="Index">Back to List</a>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

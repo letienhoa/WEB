@@ -167,3 +167,4 @@ D:\Học\WEB\DoAnMonHoc\WEBSITEBANMAYTINH\WEBSITEBANMAYTINH\obj\Debug\netcoreapp
 D:\Học\WEB\DoAnMonHoc\WEBSITEBANMAYTINH\WEBSITEBANMAYTINH\obj\Debug\netcoreapp3.0\Razor\Areas\Admin\Views\HOADON\Details.cshtml.g.cs
 D:\Học\WEB\DoAnMonHoc\WEBSITEBANMAYTINH\WEBSITEBANMAYTINH\obj\Debug\netcoreapp3.0\Razor\Areas\Admin\Views\HOADON\Edit.cshtml.g.cs
 D:\Học\WEB\DoAnMonHoc\WEBSITEBANMAYTINH\WEBSITEBANMAYTINH\obj\Debug\netcoreapp3.0\Razor\Areas\Admin\Views\HOADON\Index.cshtml.g.cs
+D:\Học\WEB\DoAnMonHoc\WEBSITEBANMAYTINH\WEBSITEBANMAYTINH\obj\Debug\netcoreapp3.0\Razor\Areas\Customer\Views\Home\Details.cshtml.g.cs

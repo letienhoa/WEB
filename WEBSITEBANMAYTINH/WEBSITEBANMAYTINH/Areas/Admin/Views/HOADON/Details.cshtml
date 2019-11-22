@@ -1,48 +1,68 @@
-﻿@model WEBSITEBANMAYTINH.Models.HOADON
+﻿@model WEBSITEBANMAYTINH.Models.ViewModel.HOADONViewModel
+@using WEBSITEBANMAYTINH.Extensions
 
-@{
-    ViewData["Title"] = "Details";
-}
+<br />
+<br />
+<h2 class="text-info">Details Hoa Don</h2>
+    <div class="p-4 border rounded row">
+        <div class="col-8 ">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="KHACHHANG"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="HOADON.KHACHHANG.TenKhachHang" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="SANPHAM"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="HOADON.SANPHAM.TenSanPham" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="HOADON.SoLuongSanPham"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="HOADON.SoLuongSanPham" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="HOADON.TongDonGia"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="HOADON.TongDonGia" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="HOADON.NgayLap"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="HOADON.NgayLap" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="col-1">
 
-<h1>Details</h1>
+            </div>
+            
+            <br />
+            <div class="form-group">
+                <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.HOADON.Id">Edit</a>
+                <a asp-action="Index" class="btn btn-success">Back To List</a>
+            </div>
+        </div>
+    </div>
+
 
 <div>
-    <h4>HOADON</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.KHACHHANG)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.KHACHHANG.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SANPHAM)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SANPHAM.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SoLuongSanPham)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SoLuongSanPham)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TongDonGia)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TongDonGia)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NgayLap)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NgayLap)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

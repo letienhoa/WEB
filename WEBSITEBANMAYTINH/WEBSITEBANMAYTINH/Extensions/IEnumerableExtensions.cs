@@ -28,5 +28,26 @@ namespace WEBSITEBANMAYTINH.Extensions
                        Selected = item.GetPropertyValue("Id").Equals(selectedValue.ToString())
                    };
         }
+        public static IEnumerable<SelectListItem> KHACHHANGLIST<T>(this IEnumerable<T> items, int selectedValue)
+        {
+            return from item in items
+                   select new SelectListItem
+                   {
+                       Text = item.GetPropertyValue("TenKhachHang"),
+                       Value = item.GetPropertyValue("Id"),
+                       Selected = item.GetPropertyValue("Id").Equals(selectedValue.ToString())
+                   };
+        }
+
+        public static IEnumerable<SelectListItem> SANPHAMLIST<T>(this IEnumerable<T> items, int selectedValue)
+        {
+            return from item in items
+                   select new SelectListItem
+                   {
+                       Text = item.GetPropertyValue("TenSanPham"),
+                       Value = item.GetPropertyValue("Id"),
+                       Selected = item.GetPropertyValue("Id").Equals(selectedValue.ToString())
+                   };
+        }
     }
 }

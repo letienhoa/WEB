@@ -4,14 +4,21 @@
     ViewData["Title"] = "Index";
 }
 
+<br />
+<br />
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">HOADON LIST</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a asp-action="Create" class="btn btn-info">&nbsp;New HOADON</a>
+    </div>
+</div>
+<table class="table table-striped border">
     <thead>
-        <tr>
+        <tr class="table-info">
             <th>
                 @Html.DisplayNameFor(model => model.KHACHHANG)
             </th>
@@ -31,29 +38,32 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.KHACHHANG.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SANPHAM.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SoLuongSanPham)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TongDonGia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgayLap)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KHACHHANG.TenKhachHang)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SANPHAM.TenSanPham)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoLuongSanPham)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TongDonGia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayLap)
+                </td>
+                <td style="width:150px">
+                    <div class="btn-group" role="group">
+                        <a asp-action="Edit" asp-route-id="@item.Id" type="button" class="btn btn-primary"><i class="fa fa-marker fa-lg"></i></a>
+                        <a asp-action="Details" asp-route-id="@item.Id" type="button" class="btn btn-success"><i class="fas fa-align-justify"></i></a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" type="button" class="btn btn-danger ml-1"><i class="fa fa-trash-alt fa-lg"></i></a>
+                    </div>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -4,7 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using WEBSITEBANMAYTINH.Data;
 using WEBSITEBANMAYTINH.Models;
 
 namespace WEBSITEBANMAYTINH.Controllers
@@ -12,27 +14,28 @@ namespace WEBSITEBANMAYTINH.Controllers
     [Area("Customer")]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ApplicationDbContext _db;
+
+        public HomeController(ApplicationDbContext db)
         {
-            _logger = logger;
+            _db = db;
         }
 
-        public IActionResult Index()
+       
+
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var SanPhamList = await _db.SANPHAM.Include(m => m.LOAISANPHAM).Include(m => m.NHASANXUAT).ToListAsync();
+            return View(SanPhamList);
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
-        }
+            var SanPham = await _db.SANPHAM.Include(m => m.LOAISANPHAM).Include(m => m.NHASANXUAT).Where(m=>m.Id==id).FirstOrDefaultAsync();
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(SanPham);
         }
     }
 }
