@@ -22,6 +22,10 @@ namespace WEBSITEBANMAYTINH.Controllers
         {
             _db = db;
         }
+        public IActionResult Home()
+        {
+            return View();
+        }
 
        
 
