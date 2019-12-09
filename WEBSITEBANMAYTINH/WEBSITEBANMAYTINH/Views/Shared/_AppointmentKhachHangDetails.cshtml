@@ -1,0 +1,48 @@
+﻿@model WEBSITEBANMAYTINH.Models.Appointments
+@{
+    ViewData["Title"] = "_AppointmentKhachHangDetails";
+}
+
+<h4 class="text-success">Appointment Details</h4>
+
+<div style="height:100px; background-color:aliceblue;" class="container border">
+    <div class="col-12">
+        <div class="row" style="padding-top:10px;">
+            <div class="col-2">
+                Full Name
+            </div>
+            <div class="col-3">
+                <input asp-for="@Model.TenKhachHang" readonly class="form-control" />
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col-2">
+                Email
+            </div>
+            <div class="col-3">
+                <input asp-for="@Model.Email" readonly class="form-control" />
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="row" style="padding-top:10px;">
+            <div class="col-2">
+                Phone Number
+            </div>
+            <div class="col-3">
+                <input asp-for="@Model.SoDienThoai" readonly class="form-control" />
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col-2">
+                Ngay Lap
+            </div>
+            <div class="col-3">
+                <input asp-for="@Model.NgayLap" readonly class="form-control" />
+            </div>
+        </div>
+    </div>
+
+</div>

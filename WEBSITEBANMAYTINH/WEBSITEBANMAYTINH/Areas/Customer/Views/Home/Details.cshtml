@@ -1,10 +1,13 @@
 ﻿@model WEBSITEBANMAYTINH.Models.SANPHAM
 @using WEBSITEBANMAYTINH.Extensions
+@using Microsoft.AspNetCore.Http
+
+@inject IHttpContextAccessor HttpContextAccessor
 
 
 <br />
 <br />
-<h2 class="text-info">Details San Pham</h2>
+<h2 class="text-info">Chi tiết Sản Phẩm</h2>
 <form method="post">
     <div class="p-4 border rounded row">
         <div class="col-8">
@@ -57,7 +60,24 @@
                 <div class="col-4">
                 </div>
                 <div class="col-8">
-                    <button type="submit" value="Add To Bag" asp-route-id="@Model.Id" class="btn btn-primary form-control">Add To Bag</button>
+                    @{
+                        bool isInBag = false;
+                        List<int> lstCart = HttpContextAccessor.HttpContext.Session.Get<List<int>>("ssShoppingCart");
+                        if (lstCart != null && lstCart.Contains(Model.Id))
+                        {
+                            isInBag = true;
+                        }
+                    }
+
+                    @if (isInBag)
+                    {
+                        <button type="submit" value="Remove From Bag" asp-action="remove" asp-route-id="@Model.Id" class="btn btn-danger form-control">Bỏ khỏi giỏ hàng</button>
+
+                    }
+                    else
+                    {
+                        <button type="submit" value="Add To Bag" asp-route-id="@Model.Id" class="btn btn-primary form-control">Thêm vào giỏ hàng</button>
+                    }
                 </div>
             </div>
 
@@ -74,15 +94,15 @@
             }*@
         </div>
         <br />
-        <div class="form-group">
+        @*<div class="form-group">
             <input type="submit" value="Edit" class="btn btn-primary" />
-        </div>
+        </div>*@
     </div>
 </form>
 
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-area="Customer" asp-controller="Home" asp-action="Home" class="btn btn-success">Back to Home</a>
 </div>
 
 @section Scripts {

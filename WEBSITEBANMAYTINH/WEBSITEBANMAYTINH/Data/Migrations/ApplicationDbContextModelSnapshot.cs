@@ -246,6 +246,33 @@ namespace WEBSITEBANMAYTINH.Data.Migrations
                     b.ToTable("ACCOUNT");
                 });
 
+            modelBuilder.Entity("WEBSITEBANMAYTINH.Models.Appointments", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("NgayLap")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SoDienThoai")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TenKhachHang")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isConfirmed")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Appointments");
+                });
+
             modelBuilder.Entity("WEBSITEBANMAYTINH.Models.HOADON", b =>
                 {
                     b.Property<int>("Id")
@@ -374,6 +401,28 @@ namespace WEBSITEBANMAYTINH.Data.Migrations
                     b.ToTable("SANPHAM");
                 });
 
+            modelBuilder.Entity("WEBSITEBANMAYTINH.Models.SanPhamChonChoHoaDon", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SanPhamId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppointmentId");
+
+                    b.HasIndex("SanPhamId");
+
+                    b.ToTable("SanPhamChonChoHoaDon");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -451,6 +500,21 @@ namespace WEBSITEBANMAYTINH.Data.Migrations
                     b.HasOne("WEBSITEBANMAYTINH.Models.NHASANXUAT", "NHASANXUAT")
                         .WithMany("SANPHAM")
                         .HasForeignKey("NhaSanXuatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WEBSITEBANMAYTINH.Models.SanPhamChonChoHoaDon", b =>
+                {
+                    b.HasOne("WEBSITEBANMAYTINH.Models.Appointments", "Appointments")
+                        .WithMany()
+                        .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WEBSITEBANMAYTINH.Models.SANPHAM", "SANPHAM")
+                        .WithMany()
+                        .HasForeignKey("SanPhamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

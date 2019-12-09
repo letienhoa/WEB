@@ -35,6 +35,11 @@ namespace WEBBANMAYTINH
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,12 +63,13 @@ namespace WEBBANMAYTINH
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                   name: "areas",
-                  template: "{area=Customer}/{controller=Home}/{action=Index}/{id?}"
+                  template: "{area=Admin}/{controller=SANPHAM}/{action=Index}/{id?}"
                 );
             });
         }

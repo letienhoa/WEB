@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Học\\WEB\\DoAnMonHoc\\WEBSITEBANMAYTINH\\WEBSITEBANMAYTINH\\WEBSITEBANMAYTINH.csproj": {}
+    "D:\\WEBSITEBANMAYTINH\\WEBSITEBANMAYTINH\\WEBSITEBANMAYTINH.csproj": {}
   },
   "projects": {
-    "D:\\Học\\WEB\\DoAnMonHoc\\WEBSITEBANMAYTINH\\WEBSITEBANMAYTINH\\WEBSITEBANMAYTINH.csproj": {
+    "D:\\WEBSITEBANMAYTINH\\WEBSITEBANMAYTINH\\WEBSITEBANMAYTINH.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Học\\WEB\\DoAnMonHoc\\WEBSITEBANMAYTINH\\WEBSITEBANMAYTINH\\WEBSITEBANMAYTINH.csproj",
+        "projectUniqueName": "D:\\WEBSITEBANMAYTINH\\WEBSITEBANMAYTINH\\WEBSITEBANMAYTINH.csproj",
         "projectName": "WEBSITEBANMAYTINH",
-        "projectPath": "D:\\Học\\WEB\\DoAnMonHoc\\WEBSITEBANMAYTINH\\WEBSITEBANMAYTINH\\WEBSITEBANMAYTINH.csproj",
+        "projectPath": "D:\\WEBSITEBANMAYTINH\\WEBSITEBANMAYTINH\\WEBSITEBANMAYTINH.csproj",
         "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
-        "outputPath": "D:\\Học\\WEB\\DoAnMonHoc\\WEBSITEBANMAYTINH\\WEBSITEBANMAYTINH\\obj\\",
+        "outputPath": "D:\\WEBSITEBANMAYTINH\\WEBSITEBANMAYTINH\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

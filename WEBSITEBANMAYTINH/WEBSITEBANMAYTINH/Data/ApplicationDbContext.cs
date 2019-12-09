@@ -23,5 +23,9 @@ namespace WEBSITEBANMAYTINH.Data
         public DbSet<KHACHHANG> KHACHHANG { get; set; }
 
         public DbSet<HOADON> HOADON { get; set; }
+
+        public DbSet<Appointments> Appointments{ get; set; }
+        public DbSet<SanPhamChonChoHoaDon> SanPhamChonChoHoaDon{ get; set; }
+
     }
 }
