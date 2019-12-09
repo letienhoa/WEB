@@ -1,0 +1,68 @@
+﻿@model WEBSITEBANMAYTINH.Models.ViewModel.SANPHAMViewModel
+@using WEBSITEBANMAYTINH.Extensions
+
+
+<br />
+<br />
+<h2 class="text-info">Details San Pham</h2>
+    <div class="p-4 border rounded row">
+        <div class="col-8">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="SANPHAM.TenSanPham"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="SANPHAM.TenSanPham" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="SANPHAM.SoLuong"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="SANPHAM.SoLuong" readonly class="form-control" />
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="SANPHAM.DonGia"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="SANPHAM.DonGia" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="LOAISANPHAM"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="SANPHAM.LOAISANPHAM.TenLoaiSanPham" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="NHASANXUAT"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="SANPHAM.NHASANXUAT.TenNhaSanXuat" readonly class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+
+        </div>
+        <div class="col-3">
+            <img src="@Model.SANPHAM.Image" width="100%" style="border-radius:5px; border:1px solid #bbb9b9;" />
+        </div>
+        <br />
+        <div class="form-group">
+            <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.SANPHAM.Id">Edit</a>
+            <a asp-action="Index" class="btn btn-success">Back To List</a>
+        </div>
+    </div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
